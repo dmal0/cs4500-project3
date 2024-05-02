@@ -4,6 +4,8 @@
   There are num_threads threads. The value of "num_threads" is input by the student.
 */
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

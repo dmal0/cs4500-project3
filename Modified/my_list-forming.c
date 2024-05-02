@@ -4,6 +4,8 @@
   There are num_threads threads. The value of "num_threads" is input by the student.
 */
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -66,8 +68,8 @@ void * producer_thread( void *arg)
     /* This is where the program differs from the original - 
        appending the nodes to a local list before appending them
        to a global list every time one is generated */
-    struct list myLocalList;
-    myLocalList.header = myLocalList.tail = NULL;
+    struct list *myLocalList;
+    myLocalList->header = myLocalList->tail = NULL;
 
     /* generate and attach K nodes to the local list */
     while( counter  < K )
@@ -96,17 +98,17 @@ void * producer_thread( void *arg)
         /* access the critical region and add a node to the global list */
         if (!pthread_mutex_trylock(&mutex_lock))
         {
-            if (myLocalList.header != NULL)
+            if (myLocalList->header != NULL)
             {
                 if (List->header == NULL)
                 {
-                    List->header = myLocalList.header;
-                    List->tail = myLocalList.tail;
+                    List->header = myLocalList->header;
+                    List->tail = myLocalList->tail;
                 }
                 else
                 {
-                    List->tail->next = myLocalList.header;
-                    List->tail = myLocalList.tail;
+                    List->tail->next = myLocalList->header;
+                    List->tail = myLocalList->tail;
                 }
             }
             pthread_mutex_unlock(&mutex_lock);
