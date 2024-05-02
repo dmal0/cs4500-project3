@@ -68,7 +68,7 @@ void * producer_thread( void *arg)
     /* This is where the program differs from the original - 
        appending the nodes to a local list before appending them
        to a global list every time one is generated */
-    struct list *myLocalList;
+    struct list *myLocalList = (struct list *)malloc(sizeof(struct list));;
     myLocalList->header = myLocalList->tail = NULL;
 
     /* generate and attach K nodes to the local list */
