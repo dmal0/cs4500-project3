@@ -4,7 +4,7 @@
   There are num_threads threads. The value of "num_threads" is input by the student.
 */
 
-#define _GNU_SOURCE
+#define _GNU_SOURCE // needed to compile in centos
 
 #include <stdio.h>
 #include <stdlib.h>
