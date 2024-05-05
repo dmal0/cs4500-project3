@@ -55,21 +55,18 @@ int *num_substring(void *arg)
 	for (i = start; i <= end; i++){   
 		count=0;
 		for(j = i,k = 0; k < n2; j++,k++){  //search for the next string of size of n2 
-			if (*(s1 + j) == *(s2 + k)){ // Matching characters
-				count++;
-				
-				if(count == n2){ // Match length check
-				pthread_mutex_lock(&mutex_lock);
-				total++;		//find a substring in this step   
-				pthread_mutex_unlock(&mutex_lock);    
-				}
-				count = 0; // Reset count
-				//break;
+			if (*(s1 + j) != *(s2 + k)){ // Non-matching characters
+				break;
 			}
-			else{
-				count = 0; // Reset count
-			}                
+			else
+				count++; // Match                  
 		}
+
+		if(count == n2){ // Match length check
+			pthread_mutex_lock(&mutex_lock);
+			total++;		//find a substring in this step   
+			pthread_mutex_unlock(&mutex_lock); 
+		}  
 	}
 	
 	pthread_exit(NULL);
