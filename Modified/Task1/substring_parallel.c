@@ -61,9 +61,9 @@ int *num_substring(void *arg)
 			else
 				count++; // Match
 			if(count == n2) // Match length check
-				pthread_mutex_lock(&mutex);
+				pthread_mutex_lock(&mutex_lock);
 				total++;		//find a substring in this step   
-				pthread_mutex_unlock(&mutex);                     
+				pthread_mutex_unlock(&mutex_lock);                     
 		}
 	}
 	
@@ -74,14 +74,15 @@ int *num_substring(void *arg)
 int main(int argc, char *argv[])
 {
 	//int count; 
+	int i;
 	pthread_t threads[NUM_THREADS];
 	int threadArgs[NUM_THREADS];
 
-	pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_init(&mutex_lock, NULL);
  
 	readf(fp);
 
-	for (int i = 0; i < NUM_THREADS; i++)
+	for (i = 0; i < NUM_THREADS; i++)
 	{
 		// Length of s1 divided by number of threads
 		// Use multiply by i to check different subranges of s1
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
 	//count = num_substring();
  	printf("The number of substrings is: %d\n", total);
 
-	pthread_mutex_destroy(&mutex);
+	pthread_mutex_destroy(&mutex_lock);
 
 	return 1;
 }
