@@ -59,14 +59,13 @@ int *num_substring(void *arg)
 				break;
 			}
 			else
-				count++; // Match                  
+				count++; // Match
+			if(count == n2)//{ // Match length check
+				pthread_mutex_lock(&mutex_lock);
+				total++;		//find a substring in this step   
+				pthread_mutex_unlock(&mutex_lock); 
+			//}                    
 		}
-
-		if(count == n2){ // Match length check
-			pthread_mutex_lock(&mutex_lock);
-			total++;		//find a substring in this step   
-			pthread_mutex_unlock(&mutex_lock); 
-		}  
 	}
 	
 	pthread_exit(NULL);
