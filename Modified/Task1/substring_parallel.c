@@ -60,10 +60,11 @@ int *num_substring(void *arg)
 			}
 			else
 				count++; // Match
-			if(count == n2) // Match length check
+			if(count == n2){ // Match length check
 				pthread_mutex_lock(&mutex_lock);
 				total++;		//find a substring in this step   
-				pthread_mutex_unlock(&mutex_lock);                     
+				pthread_mutex_unlock(&mutex_lock);    
+			}                 
 		}
 	}
 	
