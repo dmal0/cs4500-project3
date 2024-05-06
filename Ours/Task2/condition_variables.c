@@ -70,7 +70,8 @@ char readFromQueue(){
     return data;
 }
 
-//Function responsible for the behavior of the producer threadvoid *producer_thread_function( void *arg) {
+//Function responsible for the behavior of the producer thread
+void *producer_thread_function( void *arg) {
 
     FILE *fp;
 
