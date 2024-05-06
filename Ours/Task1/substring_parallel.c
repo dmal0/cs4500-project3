@@ -50,7 +50,7 @@ int *num_substring(void *arg)
 	int i,j,k; // Loop counters
 	int count; // Count for match string length
 	int start = *((int *)arg); // Start of s1 subrange
-	int end = start + (n1 / NUM_THREADS); // End of s1 subrange
+	int end = (start + n1) / NUM_THREADS; // End of s1 subrange
 
 	for (i = start; i <= end; i++){   
 		count=0;
@@ -58,13 +58,14 @@ int *num_substring(void *arg)
 			if (*(s1 + j) != *(s2 + k)){ // Non-matching characters
 				break;
 			}
-			else
+			else{
 				count++; // Match
+			}
 			if(count == n2)//{ // Match length check
 				pthread_mutex_lock(&mutex_lock);
 				total++;		//find a substring in this step   
 				pthread_mutex_unlock(&mutex_lock); 
-			//}                    
+			//}                  
 		}
 	}
 	
